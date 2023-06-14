@@ -128,6 +128,61 @@ const info =
 //     return date;
 // })
 
+
+const formBtn = document.getElementsByClassName("form-btn")[0];
+formBtn.addEventListener("click",(e) => {
+    const listEl = document.getElementById("list");
+    listEl.innerHTML = "";
+    const formEl = document.getElementById("form");
+    const formTemplate = document.getElementById("formTemplate");
+    const formTemp = formTemplate.content.querySelector("form.formclass")
+    const form = document.importNode(formTemp, true);
+    formEl.innerHTML = "";
+    formEl.appendChild(form);
+})
+
+const listBtn = document.getElementsByClassName("list-btn")[0];
+listBtn.addEventListener("click",(e) => {
+    const listEl = document.getElementById("list");
+    listEl.innerHTML = "";
+    const formEl = document.getElementById("form");
+    formEl.innerHTML = "";
+    const generator = function (list) {
+        const listEl = document.getElementById("list");
+        list.forEach((data, i) => {
+          const cardTemplate = document.getElementById("cardTemplate");
+          const cardTemp = cardTemplate.content.querySelector("div.card");
+          const card = document.importNode(cardTemp, true);
+          const image = card.getElementsByClassName("image")[0];
+          const name = card.getElementsByClassName("name")[0];
+          const description = card.getElementsByClassName("description")[0];
+          const price = card.getElementsByClassName("price")[0];
+          const date = card.getElementsByClassName("date")[0];
+          image.setAttribute("src", data.image);
+          name.innerHTML = data.title;
+          description.innerHTML = data.shortDescription;
+          price.innerHTML = data.price;
+          date.innerHTML = dateAli[i].toLocaleDateString('en-us', { weekday:"long", month:"long", day:"numeric" , year: 'numeric'});
+          //INJA AGE 'EN-US' RO BARDARIM, KHOD BE KHOD SLASH MINDAZE
+          listEl.appendChild(card);
+        });
+      };
+      
+      searchInput.addEventListener("keyup", (e) => {
+          const { value } = e.target;
+          const searchResult = value.toLowerCase();
+          const listEl = document.getElementById("list");
+          listEl.innerHTML = "";
+          const filteredData = info.filter((item) => {
+              const name = item.title.toLowerCase();
+              return name.includes(searchResult);
+          });
+          generator(filteredData);
+        });
+        generator(info);
+
+})
+
 const dateAli = info.map(function(item){
     const dateInfo = item.createdDate;
     const d = new Date(dateInfo);
@@ -135,36 +190,3 @@ const dateAli = info.map(function(item){
     return d;
 })
 
-const generator = function (list) {
-  const listEl = document.getElementById("list");
-  list.forEach((data, i) => {
-    const cardTemplate = document.getElementById("cardTemplate");
-    const cardTemp = cardTemplate.content.querySelector("div.card");
-    const card = document.importNode(cardTemp, true);
-    const image = card.getElementsByClassName("image")[0];
-    const name = card.getElementsByClassName("name")[0];
-    const description = card.getElementsByClassName("description")[0];
-    const price = card.getElementsByClassName("price")[0];
-    const date = card.getElementsByClassName("date")[0];
-    image.setAttribute("src", data.image);
-    name.innerHTML = data.title;
-    description.innerHTML = data.shortDescription;
-    price.innerHTML = data.price;
-    date.innerHTML = dateAli[i].toLocaleDateString('en-us', { weekday:"long", month:"long", day:"numeric" , year: 'numeric'});
-    //INJA AGE 'EN-US' RO BARDARIM, KHOD BE KHOD SLASH MINDAZE
-    listEl.appendChild(card);
-  });
-};
-
-searchInput.addEventListener("keyup", (e) => {
-    const { value } = e.target;
-    const searchResult = value.toLowerCase();
-    const listEl = document.getElementById("list");
-    listEl.innerHTML = "";
-    const filteredData = info.filter((item) => {
-        const name = item.title.toLowerCase();
-        return name.includes(searchResult);
-    });
-    generator(filteredData);
-  });
-  generator(info);

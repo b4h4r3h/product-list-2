@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <title>Document</title>
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="input-parent">
-        <input id="searchInput" placeholder="جستجو"/>
+        <input id="searchInput" placeholder="جستجو" />
     </div>
     <div class="container">
         <!-- <div class="card-parent margin-top">
@@ -58,18 +60,33 @@
             </div>
         </div>
     </div> -->
-    <div id="list" class="card-parent margin-top"></div>
-    <template id="cardTemplate">
-        <div class="card">
-            <img class="image" />
-            <p class="name"></p>
-            <p class="description"></p>
-            <p class="price"></p>
-            <p class="date"></p>
+        <div>
+            <button class="list-btn"> نمایش لیست
+            </button>
+            <button class="form-btn">نمایش فرم
+            </button>
         </div>
-        
-    </template>
-    <script src="/search.js">
-    </script>
-  </body>
+        <div id="form">
+            <template id="formTemplate">
+                <form class="formclass">
+                    <input class="inpt" placeholder="hi">
+                    <p class="p"></p>
+                    <button>Submit</button>
+                </form>
+            </template>
+        </div>
+        <div id="list" class="card-parent margin-top"></div>
+        <template id="cardTemplate">
+            <div class="card">
+                <img class="image" />
+                <p class="name"></p>
+                <p class="description"></p>
+                <p class="price"></p>
+                <p class="date"></p>
+            </div>
+        </template>
+        <script src="/search.js">
+        </script>
+</body>
+
 </html>
